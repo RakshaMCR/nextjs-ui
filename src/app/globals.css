@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255; /* Updated to white */
+  --background-end-rgb: 255, 255, 255;   /* Updated to white */
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, transparent), rgb(var(--background-rgb));
+    background-color: rgb(30 41 59);
+    text-align: center; /* Center align text */
+}
+
+/* Additional utility classes for text color and background color */
+.text-white {
+  color: white !important;
+}
+h1 {
+  font-weight: bold; /* Make the heading bold */
+  text-align: center; /* Center-align the heading */
+}
+label {
+  margin-bottom: 10px;
+}
+input {
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+
+
