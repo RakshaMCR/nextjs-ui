@@ -52,7 +52,10 @@ const UploadPage = () => {
       else if (selection === 'github') {
         // Handle GitHub repository logic
         try{
-          const response = await fetch('/');
+          const response = await fetch('/'
+          {
+            method: 'POST',
+          });
           const data = await response.json();
           console.log('Response data:', data);
           setError('The File generated successfully.');
