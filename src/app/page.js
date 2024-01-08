@@ -1,4 +1,4 @@
-// pages/index.js
+
 
 "use client"
 import React, { useEffect, useState } from 'react';
@@ -53,7 +53,7 @@ const UploadPage = () => {
         // Handle GitHub repository logic
         try{
           const response = await fetch('/'
-          {
+          ,{
             method: 'POST',
           });
           const data = await response.json();
