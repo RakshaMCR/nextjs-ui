@@ -1,13 +1,18 @@
-
+// pages/index.js
 
 "use client"
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
+
 const UploadPage = () => {
+  const router = useRouter();
+  
   const [selection, setSelection] = useState(null);
   const [file, setFile] = useState(null);
   const [githubRepo, setGithubRepo] = useState('');
   const [error, setError] = useState(null);
+  
 
   const handleSelectionChange = (value) => {
     setSelection(value);
@@ -28,44 +33,61 @@ const UploadPage = () => {
   const handleSubmit = async() => {
     // Handle the submission based on the user's selection
     setError(null);
-    if (selection === 'local files') {
-      // Handle file upload logic
-      const formData = new FormData();
-      formData.append('file',file);
-      try {
-        const response = await fetch('/', 
-        { 
-          method: 'POST',
-          body: formData,
-        });
-        //Handle the response as needed
-        const data = await response.json();
-        console.log('Response data: ', data); 
-        setError('The File generated successfully.'); 
-      } 
-      catch (error) {
-        console.error('Error uploading file:', error);
-        setError('An Error occured. Please try again.');
+    try{
+        // Handle file upload logic
+        if (selection === 'local files') {
+          const formData = new FormData();
+          formData.append('file',file);
+          const response = await fetch('https://pypypy12.azurewebsites.net/', 
+          { 
+            method: 'POST',
+            body: formData,
+          });
+          if (response.ok){
+          //Handle the response as needed
+            const data = await response.json();
+            console.log('Response data: ', data); 
+            setError('The File generated successfully.');
+            Router.push('../app/backend/uploadpage');
+          }
+          else{
+            console.error('Error:', response.statusText);
+            setError('An Error occured. Please try again.');
+          }
       }
     }
-
-      else if (selection === 'github') {
+    catch (error) {
+      console.error('Error uploading file:', error);
+      setError('An Error occured. Please try again.');
+    }
+    try{
+      if (selection === 'github') {
         // Handle GitHub repository logic
-        try{
-          const response = await fetch('/'
-          ,{
-            method: 'POST',
-          });
+        console.log('GitHub repository:', githubRepo);
+        const response = await fetch('https://pypypy12.azurewebsites.net/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },        body: JSON.stringify({ data: githubRepo }),
+        });
+        if (response.ok){
           const data = await response.json();
-          console.log('Response data:', data);
-          setError('The File generated successfully.');
+          console.log('Server response:', data);
+          setError('The File generated successfully.');  
+          router.push('../app/backend/uploadpage');
         }
-        catch (error) {
-          console.error('Error uploading Github repository:', error);
+        else{
+          console.error('Error:', response.statusText);
           setError('An Error occured. Please try again.');
         }
-      }
-    }; 
+           
+    }
+  }
+    catch (error) {
+      console.error('Error uploading Github repository:', error);
+      setError('An Error occured. Please try again.');
+        }
+      }; 
 
   return (
   
@@ -114,6 +136,7 @@ const UploadPage = () => {
     </div>
     </div>
   );
-};
+      };
 
-export default UploadPage;
+export default (UploadPage);
+
