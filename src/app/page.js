@@ -1,12 +1,12 @@
 // pages/index.js
 
 "use client"
-import { useRouter } from 'next/router';
+
 import React, { useEffect, useState } from 'react';
 
 
 const UploadPage = () => {
-  const router = useRouter();
+
   
   const [selection, setSelection] = useState(null);
   const [file, setFile] = useState(null);
@@ -48,7 +48,7 @@ const UploadPage = () => {
             const data = await response.json();
             console.log('Response data: ', data); 
             setError('The File generated successfully.');
-            Router.push('../app/backend/uploadpage');
+          
           }
           else{
             console.error('Error:', response.statusText);
@@ -74,7 +74,7 @@ const UploadPage = () => {
           const data = await response.json();
           console.log('Server response:', data);
           setError('The File generated successfully.');  
-          router.push('../app/backend/uploadpage');
+          
         }
         else{
           console.error('Error:', response.statusText);
