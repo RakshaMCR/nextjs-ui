@@ -3,11 +3,12 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 
 const UploadPage = () => {
 
-  
+  const router = useRouter();
   const [selection, setSelection] = useState(null);
   const [file, setFile] = useState(null);
   const [githubRepo, setGithubRepo] = useState('');
@@ -47,7 +48,8 @@ const UploadPage = () => {
           //Handle the response as needed
             const data = await response.json();
             console.log('Response data: ', data); 
-            setError('The File generated successfully.');
+            //setError('The File generated successfully.');
+            router.push('/codegenerate');
           
           }
           else{
@@ -73,7 +75,8 @@ const UploadPage = () => {
         if (response.ok){
           const data = await response.json();
           console.log('Server response:', data);
-          setError('The File generated successfully.');  
+          //setError('The File generated successfully.');
+          router.push('/codegenerate');
           
         }
         else{
